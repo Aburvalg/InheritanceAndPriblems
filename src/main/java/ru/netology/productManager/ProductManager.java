@@ -19,7 +19,12 @@ public class ProductManager {
         Product[] result = new Product[0]; // тут будем хранить подошедшие запросу продукты
         for (Product product : repository.showAll()) {
             if (matches(product, text)) {
-                // "добавляем в конец" массива result продукт product
+                int length = result.length + 1;    // "добавляем в конец" массива result продукт product
+                Product[] tmp = new Product[length];
+                System.arraycopy(result, 0, tmp, 0, result.length);
+                int lastIndex = tmp.length - 1;
+                tmp[lastIndex] = product;
+                result = tmp;
             }
         }
         return result;

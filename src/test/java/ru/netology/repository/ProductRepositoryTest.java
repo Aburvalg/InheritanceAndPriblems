@@ -50,23 +50,6 @@ class ProductRepositoryTest {
     }
 
     @Test
-    void shouldShowAllAmount() {
-        Product first = new Product(1, "sdgfs", 100);
-        Book second = new Book(2, "sdgf", 35, "vre");
-        Smartphone third = new Smartphone(3, "dsfre", 54, "wesc");
-
-
-        ProductRepository repo = new ProductRepository();
-        repo.save(first);
-        repo.save(second);
-        repo.save(third);
-
-        int expected = 189;
-        int actual = repo.amount();
-        assertEquals(expected, actual);
-    }
-
-    @Test
     void shouldSaveEmpty() {
 
         ProductRepository repo = new ProductRepository();

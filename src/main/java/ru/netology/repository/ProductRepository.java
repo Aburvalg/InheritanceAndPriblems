@@ -22,20 +22,13 @@ public class ProductRepository {
         int length = products.length - 1;
         Product[] tmp = new Product[length];
         int index = 0;
-        for (Product film : products) {
-            if (film.getId() != id) {
-                tmp[index] = film;
+        for (Product product : products) {
+            if (product.getId() != id) {
+                tmp[index] = product;
                 index++;
             }
         }
         products = tmp;
     }
 
-    public int amount() {
-        int result = 0;
-        for (Product product : showAll()) {
-            result = result + product.getCount();
-        }
-        return result;
-    }
 }
