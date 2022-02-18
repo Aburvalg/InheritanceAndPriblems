@@ -8,7 +8,4 @@ public class Book extends Product {
         this.author = author;
     }
 
-    public Book(String author) {
-        this.author = author;
-    }
 }

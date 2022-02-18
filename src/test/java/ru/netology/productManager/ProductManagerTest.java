@@ -1,5 +1,6 @@
 package ru.netology.productManager;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Book;
 import ru.netology.domain.Product;
@@ -9,44 +10,72 @@ import ru.netology.repository.ProductRepository;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ProductManagerTest {
+    private ProductRepository repo = new ProductRepository();
+    private ProductManager manager = new ProductManager(repo);
 
-    @Test
-    public void add() {
-        Product first = new Product(1, "sdgfs", 100);
-        Book second = new Book(2, "sdgf", 35, "vre");
-        Smartphone third = new Smartphone(3, "dsfre", 54, "wesc");
-        Book forth = new Book("egrt");
-        Smartphone fifth = new Smartphone("F-50");
+    private Product first = new Product(1, "first", 100);
+    private Book second = new Book(2, "Want to sleep", 1, "A.Chekhov");
+    private Smartphone third = new Smartphone(3, "A-50", 4, "Samsung");
 
-        ProductRepository repo = new ProductRepository();
+    private Book forth = new Book(4, "Want to sleep", 1, "A.Chekhov");
+    private Smartphone fifth = new Smartphone(5, "A-50", 4, "Samsung");
 
-        ProductManager manager = new ProductManager(repo);
+    @BeforeEach
+    public void setUp() {
         manager.add(first);
         manager.add(second);
         manager.add(third);
-        manager.add(forth);
-        manager.add(fifth);
 
-        Product[] expected = {first, second, third, forth, fifth};
+    }
+
+    @Test
+    public void add() {
+
+        Product[] expected = {first, second, third};
         Product[] actual = repo.showAll();
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void searchBy() {
-        Product first = new Product(1, "sdgfs", 100);
-        Book second = new Book(2, "sdgf", 35, "vre");
-        Smartphone third = new Smartphone(3, "dsfre", 54, "wesc");
+    public void searchByProduct() {
+        Product[] expected = {first};
+        Product[] actual = manager.searchBy("first");
+        assertArrayEquals(expected, actual);
+    }
 
-        ProductRepository repo = new ProductRepository();
+    @Test
+    public void searchByBook() {
+        Product[] expected = {second};
+        Product[] actual = manager.searchBy("Want to sleep");
+        assertArrayEquals(expected, actual);
+    }
 
-        ProductManager manager = new ProductManager(repo);
-        manager.add(first);
-        manager.add(second);
-        manager.add(third);
+    @Test
+    public void searchByPhone() {
+        Product[] expected = {third};
+        Product[] actual = manager.searchBy("A-50");
+        assertArrayEquals(expected, actual);
+    }
 
-        Product[] expected = {first}; // при вводе first тест падает
-        Product[] actual = manager.searchBy("sdgfs");
+    @Test   // При пустом запросе выдается весь массив!!!!!!!
+    public void searchByEmptySearch() {
+        Product[] expected = {first, second, third};
+        Product[] actual = manager.searchBy("");
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void searchBySimilar() {
+        manager.add(forth);
+        Product[] expected = {second, forth};
+        Product[] actual = manager.searchBy("Want to sleep");
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void searchByNothing() {
+        Product[] expected = {};
+        Product[] actual = manager.searchBy("efver");
         assertArrayEquals(expected, actual);
     }
 

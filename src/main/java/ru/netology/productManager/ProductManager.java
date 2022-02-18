@@ -4,7 +4,6 @@ import ru.netology.domain.Product;
 import ru.netology.repository.ProductRepository;
 
 public class ProductManager {
-    private Product[] products = new Product[0];
     private ProductRepository repository;
 
     public ProductManager(ProductRepository repository) {
@@ -37,7 +36,8 @@ public class ProductManager {
         } else {
             return false;
         }
-        // или в одну строку: return product.getName().contains(search);
+//    короче: return product.getName().contains(search);
     }
+
 
 }

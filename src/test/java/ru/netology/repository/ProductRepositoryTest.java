@@ -1,46 +1,39 @@
 package ru.netology.repository;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.domain.Smartphone;
+import ru.netology.productManager.ProductManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductRepositoryTest {
+    private ProductRepository repo = new ProductRepository();
 
-    @Test
-    void shouldSave() {
-        Product first = new Product(1, "sdgfs", 100);
-        Book second = new Book(2, "sdgf", 35, "vre");
-        Book third = new Book("rger");
-        Smartphone forth = new Smartphone(3, "dsfre", 54, "wesc");
-        Smartphone fifth = new Smartphone("F-50");
+    private Product first = new Product(1, "first", 100);
+    private Book second = new Book(2, "Want to sleep", 1, "A.Chekhov");
+    private Smartphone third = new Smartphone(3, "A-50", 4, "Samsung");
 
-        ProductRepository repo = new ProductRepository();
+    @BeforeEach
+    public void setUp() {
         repo.save(first);
         repo.save(second);
         repo.save(third);
-        repo.save(forth);
-        repo.save(fifth);
 
+    }
 
-        Product[] expected = {first, second, third, forth, fifth};
+    @Test
+    void shouldSave() {
+
+        Product[] expected = {first, second, third};
         Product[] actual = repo.showAll();
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void shouldRemoveById() {
-        Product first = new Product(1, "sdgfs", 100);
-        Book second = new Book(2, "sdgf", 35, "vre");
-        Smartphone third = new Smartphone(3, "dsfre", 54, "wesc");
-
-
-        ProductRepository repo = new ProductRepository();
-        repo.save(first);
-        repo.save(second);
-        repo.save(third);
 
         repo.removeById(2);
 
