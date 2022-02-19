@@ -14,10 +14,10 @@ public class ProductManager {
         repository.save(product);
     }
 
-    public Product[] searchBy(String text) {
+    public Product[] searchBy(String search) {
         Product[] result = new Product[0]; // тут будем хранить подошедшие запросу продукты
         for (Product product : repository.showAll()) {
-            if (matches(product, text)) {
+            if (product.matches(search)) {
                 int length = result.length + 1;    // "добавляем в конец" массива result продукт product
                 Product[] tmp = new Product[length];
                 System.arraycopy(result, 0, tmp, 0, result.length);
@@ -30,14 +30,14 @@ public class ProductManager {
     }
 
     // метод определения соответствия товара product запросу search
-    public boolean matches(Product product, String search) {
-        if (product.getName().contains(search)) {
-            return true;
-        } else {
-            return false;
-        }
+//    public boolean matches(Product product, String search) {
+//        if (product.getName().contains(search)) {
+//            return true;
+//        } else {
+//            return false;
+//        }
 //    короче: return product.getName().contains(search);
-    }
-
-
 }
+
+
+
