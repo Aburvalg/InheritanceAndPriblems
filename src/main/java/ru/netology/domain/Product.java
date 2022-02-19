@@ -11,6 +11,14 @@ public class Product {
         this.count = count;
     }
 
+    public boolean matches(String search) {
+        if (getName().contains(search)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public int getId() {
         return id;
     }

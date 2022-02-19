@@ -8,4 +8,16 @@ public class Smartphone extends Product {
         this.brand = brand;
     }
 
+    public String getBrand() {
+        return brand;
+    }
+
+    public boolean matches(String search) {
+        if (super.matches(search)) {
+            return true;
+        }
+        return getBrand().contains(search);
+    }
+
+
 }
